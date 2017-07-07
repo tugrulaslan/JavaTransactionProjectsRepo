@@ -13,18 +13,18 @@ import javax.persistence.Persistence;
 public class EntityManagerUtil {
     private final static Logger logger = LoggerFactory.getLogger(EntityManagerUtil.class);
     private static EntityManagerFactory localEntityManagerFactory;
+    private static EntityManager entityManager;
 
     static {
         try {
             localEntityManagerFactory = Persistence.createEntityManagerFactory("mysqlPU");
+            entityManager = localEntityManagerFactory.createEntityManager();
         } catch (Throwable ex) {
-           logger.error(ex.getMessage());
+            logger.error(ex.getMessage());
         }
     }
 
     public static EntityManager getEntityManager() {
-        return localEntityManagerFactory.createEntityManager();
+        return entityManager;
     }
-
-
 }
